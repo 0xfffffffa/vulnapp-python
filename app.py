@@ -89,7 +89,11 @@ def logout():
 def exec_command():
     if request.method == 'POST':
         command = request.form['command']
-        result = subprocess.getoutput(command)
+import shlex
+import subprocess
+
+command = shlex.split(command)
+result = subprocess.run(command, shell=False, text=True, capture_output=True, check=True).stdout
         return render_template('exec_command.html', result=result)
     return render_template('exec_command.html')
 
