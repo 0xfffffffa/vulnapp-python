@@ -13,8 +13,16 @@ ADMIN_PASSWORD = '0zu9r2idf9c0tfcc4w26l66ij7visb8q'
 # Initialize the database
 conn = sqlite3.connect('blog.db')
 c = conn.cursor()
+The provided code seems secure as it stands. It is creating a table called posts with fields id, title, and content. The table is created only if it does not exist already. 
+
+One point could be if user has control over query or not. If user has any control, then best practice is to avoid SQL Injection. But since this is a static query code, it does not have SQL Injection vulnerability.
+
+So, here's the same secure code:
+
+```python
 c.execute('''CREATE TABLE IF NOT EXISTS posts 
              (id INTEGER PRIMARY KEY, title TEXT, content TEXT)''')
+```
 conn.commit()
 conn.close()
 
